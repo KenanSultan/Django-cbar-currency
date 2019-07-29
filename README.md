@@ -1,0 +1,1 @@
+## Getting currencies and differencies from CBAR
