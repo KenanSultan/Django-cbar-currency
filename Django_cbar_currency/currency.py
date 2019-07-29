@@ -1,8 +1,9 @@
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
+from django.conf import settings
 import requests
 import json
-from django.conf import settings
+import os
 
 class Currency:
 
@@ -46,12 +47,14 @@ class Currency:
 
     @staticmethod
     def write_difference_to_file(difference, file_name):
-        with open("/".join(settings.CBAR_CURRENCY_ROOT, file_name), 'w') as file:
+        if not os.path.exists(settings.CBAR_CURRENCY_ROOT):
+            os.makedirs(settings.CBAR_CURRENCY_ROOT)
+        with open("/".join((settings.CBAR_CURRENCY_ROOT, file_name)), 'w') as file:
             file.write(json.dumps(difference))
 
     @staticmethod
     def read_file(file_name):
-        with open("/".join(settings.CBAR_CURRENCY_ROOT, file_name), 'r') as file:
+        with open("/".join((settings.CBAR_CURRENCY_ROOT, file_name)), 'r') as file:
             content = file.read()
         
         return json.loads(content)
@@ -60,16 +63,21 @@ class Currency:
     def get_list():
         try:
             return Currency.read_file('currency_difference.txt')
-        except:
+        except Exception as e:
             return []
 
     @staticmethod
     def get_specific_currencies(specific_currencies):
         all_currencies = Currency.get_list()
+        list_for_test = list(specific_currencies)
         for currency in all_currencies:
             if currency['kod'] in specific_currencies:
                 specific_currencies.insert(specific_currencies.index(currency['kod']), currency)
                 specific_currencies.remove(currency['kod'])
+                list_for_test.remove(currency['kod'])
+
+        if len(list_for_test) != 0:
+            specific_currencies = [currency for currency in specific_currencies if currency not in list_for_test]
 
         return specific_currencies
 
@@ -93,7 +101,9 @@ class Currency:
             todayXml = Currency.get_list_from_cbar(today)
 
             currencyDifference = Currency.get_currency_difference(yesterdayXml, todayXml)
-
             Currency.write_difference_to_file(currencyDifference, 'currency_difference.txt')
-        except:
-            pass
+
+            return True
+
+        except Exception as e:
+            return str(e)
