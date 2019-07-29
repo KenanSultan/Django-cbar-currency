@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta
 import requests
 import json
+from django.conf import settings
 
 class Currency:
 
@@ -45,12 +46,12 @@ class Currency:
 
     @staticmethod
     def write_difference_to_file(difference, file_name):
-        with open(file_name, 'w') as file:
+        with open("/".join(settings.CBAR_CURRENCY_ROOT, file_name), 'w') as file:
             file.write(json.dumps(difference))
 
     @staticmethod
     def read_file(file_name):
-        with open(file_name, 'r') as file:
+        with open("/".join(settings.CBAR_CURRENCY_ROOT, file_name), 'r') as file:
             content = file.read()
         
         return json.loads(content)
