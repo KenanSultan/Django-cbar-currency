@@ -8,7 +8,7 @@ setup(
   author = 'KENAN SULTAN',
   author_email = 'kenansultan@yahoo.com',
   url = 'https://github.com/KenanSultan/Django-cbar-currency', 
-  download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',
+  download_url = 'https://github.com/KenanSultan/Django-cbar-currency/archive/v_1.0.0.tar.gz',
   keywords = ['CBAR', 'CURRENCY'],
   install_requires=['requests'],
   classifiers=[
