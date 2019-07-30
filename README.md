@@ -2,17 +2,19 @@
 
     ## How to install
         1. Install pip package
-
+            ```
             pip install Django-cbar-currency
-
+            ```
         2. Configure directory for file
             In settings.py file set a directory
-
+            ```
             CBAR_CURRENCY_ROOT = os.path.join(BASE_DIR, 'media', 'cbar')
-
+            ```
 
     ## How to import
+        ```
         from cbar_currency import Currency
+        ```
 
     ## Functions
         1. Currency.cron_script()

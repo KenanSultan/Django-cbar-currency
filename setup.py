@@ -1,14 +1,20 @@
 from distutils.core import setup
+
+with open("README.md", "r") as fh:
+  long_description = fh.read()
+
 setup(
   name = 'cbar_currency',    
   packages = ['cbar_currency'],
-  version = '1.0.3',
-  license='MIT',
+  version = '1.0.4',
+  license = 'MIT',
   description = 'Getting currencies and differencies from CBAR',
+  long_description = long_description,
+  long_description_content_type = "text/markdown",
   author = 'KENAN SULTAN',
   author_email = 'kenansultan@yahoo.com',
   url = 'https://github.com/KenanSultan/Django-cbar-currency', 
-  download_url = 'https://github.com/KenanSultan/Django-cbar-currency/archive/v_1.0.3.tar.gz',
+  download_url = 'https://github.com/KenanSultan/Django-cbar-currency/archive/v_1.0.4.tar.gz',
   keywords = ['CBAR', 'CURRENCY'],
   install_requires=['requests'],
   classifiers=[
